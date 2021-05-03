@@ -1,0 +1,12 @@
+<template>
+    <lightning-spinner alternative-text="Loading" size="large" if:true={showSpinner}></lightning-spinner>
+    <div class="slds-box slds-theme_default">
+        <lightning-input type="file" label="Upload CSV" onchange={handleFilesChange} multiple>
+        </lightning-input>
+    </div>
+    <div class="slds-box slds-theme_default" if:true={tableData}>
+        <lightning-datatable key-field="id" data={tableData} show-row-number-column hide-checkbox-column
+            enable-infinite-loading columns={tableColumns}>
+        </lightning-datatable>
+    </div>
+</template>

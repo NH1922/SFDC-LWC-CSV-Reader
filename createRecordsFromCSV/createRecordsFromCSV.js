@@ -25,28 +25,28 @@ export default class CreateRecordsFromCSV extends LightningElement {
         fileReader.onload = () => {
             console.log('File Read')
             let csvArray = [...parseCSV(fileReader.result)]
-            console.log('Rows read : ', csvArray)
+            console.log('Rows read : ', csvArray.length)
             // let csvArray = parseCSVSync(fileReader.result)
 
             /* if csvArray is blank, show error in processing csv*/
 
             // this.parseData = csvArray
-            // this.tableColumns = csvArray[0].map(item => {
-            //     return {
-            //         label: item,
-            //         fieldName: item.replace(' ', '_')
-            //     }
-            // })
-            //console.log(this.tableColumns)
-            // this.tableData = csvArray.slice(1).map((data) => {
-            //     let dataAsObject = {}
-            //     for(let i in data){
-            //         dataAsObject[this.tableColumns[i].fieldName] = data[i]
-            //     }
-            //     return dataAsObject
-            // })
+            this.tableColumns = csvArray[0].map(item => {
+                return {
+                    label: item,
+                    fieldName: item.replace(' ', '_')
+                }
+            })
+            console.log(this.tableColumns)
+            this.tableData = csvArray.slice(1).map((data) => {
+                let dataAsObject = {}
+                for(let i in data){
+                    dataAsObject[this.tableColumns[i].fieldName] = data[i]
+                }
+                return dataAsObject
+            })
             this.showSpinner = false
-            //console.log(this.tableData)
+            console.log(this.tableData)
         }
         fileReader.readAsText(file)
     }
